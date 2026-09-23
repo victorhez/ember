@@ -21,3 +21,5 @@ Thumbs.db
 # agent-local copies of the skill pack (canonical copy lives in .agents/skills)
 /.claude/
 /agent/
+
+.vercel

@@ -41,7 +41,7 @@ PRD ref: `prd.md > The Core Journey`.
 - Tests: `npm test`. Production build: `npm run build` (outputs static files to `dist/`).
 - No API keys or environment variables.
 - Demo recording: run locally or use the deployed site; choose *Explore with sample history*.
-- Deployment: static hosting (Vercel). `vercel.json` sets the build output and long-lived caching for hashed assets.
+- Deployment: static hosting on Vercel at https://ember-pacing.vercel.app (repository: https://github.com/victorhez/ember). `vercel.json` sets the build output and long-lived caching for hashed assets; pushes to `main` redeploy.
 
 ## Look and Feel
 From `prd.md > Look and Feel`.
@@ -61,7 +61,7 @@ PRD ref: `prd.md > Plan Builder`.
 
 ### Model: Forecast
 `src/model/forecast.ts` — `envelopeFromCheckIn`, `planCost`, `projectDays` and `explain`.
-Projection for day `t+k` (k = 0..3): `baseline − owed(t+k) − ratio · Σ over(t) · w[k]` where `over(t) = max(0, planCost − envelope)`, `w` are lag weights for 1..3 days (k=0 gets none), and `owed` is payback from logged past days still landing. Today's projected envelope is the check-in envelope if present, else `baseline − owed(t)`. Status: *Crash likely* below 55% of baseline, *Tight* below 75%, else *Comfortable*.
+Projection for day `t+k` (k = 0..3): `baseline − owed(t+k) − ratio · Σ over(t) · w[k]` where `over(t) = max(0, planCost − envelope)`, `w` are lag weights for 1..3 days (k=0 gets none), and `owed` is payback from logged past days still landing. Today's projected envelope is the check-in envelope if present, else `baseline − owed(t)`. Status: *Crash likely* below 65% of baseline, *Tight* below 85%, else *Comfortable* (revised from 55%/75% during the build — see `checklist.md > Revisions`).
 PRD ref: `prd.md > Payback Forecast`, `prd.md > Morning Check-in`.
 
 ### Model: Learning

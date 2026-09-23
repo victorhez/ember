@@ -9,6 +9,8 @@
 A pacing planner for people living with ME/CFS, Long COVID and other energy-limiting illness.<br/>
 Plan your day and watch the next three days respond — before your body sends the bill.
 
+**[Try it live → ember-pacing.vercel.app](https://ember-pacing.vercel.app)**
+
 <br/>
 
 <img src="docs/today.jpg" alt="Ember's Today screen: a planned day four and a half spoons over budget, with Friday forecast as Crash likely" width="100%" />
