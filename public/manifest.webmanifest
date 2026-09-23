@@ -1,0 +1,13 @@
+{
+  "name": "Ember — pacing planner",
+  "short_name": "Ember",
+  "description": "See tomorrow's crash before you spend today.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0a08",
+  "theme_color": "#0d0a08",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

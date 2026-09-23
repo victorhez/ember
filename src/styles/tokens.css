@@ -1,0 +1,78 @@
+:root,
+:root[data-theme='night'] {
+  color-scheme: dark;
+  --bg: #0d0a08;
+  --bg-glow-1: rgba(255, 106, 43, 0.13);
+  --bg-glow-2: rgba(94, 200, 181, 0.05);
+  --surface: rgba(255, 238, 222, 0.035);
+  --surface-2: rgba(255, 238, 222, 0.06);
+  --surface-3: rgba(255, 238, 222, 0.09);
+  --surface-solid: #16110d;
+  --border: rgba(255, 228, 205, 0.075);
+  --border-strong: rgba(255, 228, 205, 0.15);
+  --text: #f6ede2;
+  --text-2: #bba996;
+  --text-3: #7f705f;
+  --ember-1: #ff5a1f;
+  --ember-2: #ff8a3d;
+  --ember-3: #ffc46b;
+  --ember-4: #ffe4ae;
+  --ash: #3a2f28;
+  --rest: #62cbb8;
+  --rest-soft: rgba(98, 203, 184, 0.13);
+  --risk: #ef6d7d;
+  --risk-soft: rgba(239, 109, 125, 0.13);
+  --tight: #f4b65a;
+  --tight-soft: rgba(244, 182, 90, 0.13);
+  --calm: #bcd57c;
+  --calm-soft: rgba(188, 213, 124, 0.12);
+  --on-ember: #1a0c04;
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 30px 80px -40px rgba(0, 0, 0, 0.8);
+  --shadow-pop: 0 20px 60px -20px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-strong);
+  --grain-opacity: 0.05;
+}
+
+:root[data-theme='day'] {
+  color-scheme: light;
+  --bg: #f6efe5;
+  --bg-glow-1: rgba(255, 138, 61, 0.16);
+  --bg-glow-2: rgba(47, 158, 140, 0.07);
+  --surface: rgba(255, 252, 247, 0.62);
+  --surface-2: rgba(255, 252, 247, 0.9);
+  --surface-3: rgba(120, 70, 30, 0.07);
+  --surface-solid: #fffaf3;
+  --border: rgba(90, 50, 20, 0.08);
+  --border-strong: rgba(90, 50, 20, 0.15);
+  --text: #2a1e15;
+  --text-2: #6c5a4b;
+  --text-3: #a08e7e;
+  --ember-1: #e0501a;
+  --ember-2: #f07a2c;
+  --ember-3: #f5a94a;
+  --ember-4: #ffd58a;
+  --ash: #d9cbbd;
+  --rest: #238b7a;
+  --rest-soft: rgba(35, 139, 122, 0.1);
+  --risk: #cf3f55;
+  --risk-soft: rgba(207, 63, 85, 0.09);
+  --tight: #b87812;
+  --tight-soft: rgba(184, 120, 18, 0.1);
+  --calm: #5f7f1d;
+  --calm-soft: rgba(95, 127, 29, 0.1);
+  --on-ember: #fff8f0;
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 24px 60px -36px rgba(90, 45, 10, 0.35);
+  --shadow-pop: 0 20px 60px -20px rgba(90, 45, 10, 0.35), 0 0 0 1px var(--border-strong);
+  --grain-opacity: 0.035;
+}
+
+:root {
+  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --font-ui: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --radius-lg: 28px;
+  --radius: 20px;
+  --radius-sm: 14px;
+  --radius-pill: 999px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --gutter: clamp(16px, 4vw, 40px);
+  --ember-gradient: linear-gradient(135deg, var(--ember-1), var(--ember-2) 45%, var(--ember-3));
+}

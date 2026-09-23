@@ -9,7 +9,7 @@ Build mode: fast
 
 ## Slices
 
-- [ ] **1. A planned day shows its payback on the next three days**
+- [x] **1. A planned day shows its payback on the next three days**
   Becomes usable: A running app where adding activities to today's plan lowers the projected envelope on the following days, with Crash likely states.
   Why now: This is the kernel. Proving the forecast end to end first — scaffold, model, store, UI — means everything else is built around something that already works.
   PRD ref: `prd.md > The Core Journey` (steps 3–4), `prd.md > Payback Forecast`, `prd.md > Plan Builder`
@@ -19,7 +19,7 @@ Build mode: fast
   Learner check: Open the app, check in, add activities until you pass your envelope, and watch a later day go dark.
   Commit: `Forecast the payback of today's plan across the next three days`
 
-- [ ] **2. Ember learns your pattern from history**
+- [x] **2. Ember learns your pattern from history**
   Becomes usable: Sample history loads from the Welcome screen; the forecast uses a lag and ratio fitted from it; the Pattern screen shows history with overspend→crash arcs and learned stats.
   Why now: Personal learning is the second half of the kernel and the source of the most memorable visual.
   PRD ref: `prd.md > Welcome and Setup`, `prd.md > Pattern Learning`
@@ -29,7 +29,7 @@ Build mode: fast
   Learner check: Choose Explore with sample history, open Pattern, and see arcs linking over-budget days to the crash two days later.
   Commit: `Learn personal payback lag and ratio from logged history`
 
-- [ ] **3. Quick add, swaps and explanations close the loop**
+- [x] **3. Quick add, swaps and explanations close the loop**
   Becomes usable: Typing a day in plain words fills the plan; a risky plan explains its cause and offers swaps that visibly fix the forecast.
   Why now: Turns the forecast from a warning into an action — the demo's resolution beat.
   PRD ref: `prd.md > Plan Builder`, `prd.md > Swaps`, `prd.md > Payback Forecast`
@@ -71,4 +71,9 @@ Reflection:
 Activity mode: 
 
 ## Revisions
+
+- Slices 1–3 were implemented and verified together in one commit — all three render on the same Today screen and share the forecast input, so an intermediate commit would not have built cleanly. Each slice's mechanical checks (unit tests for forecast, learning, quick add and swaps; production build; browser walk-through of check-in → over-budget plan → Crash likely → swap → recovery; Pattern arcs) passed before committing.
+- Risk thresholds moved from 55%/75% to 65%/85% of the usual budget — with the original lines, a clearly over-budget day produced only "Tight", which under-warned compared with how the sample history actually crashed.
+- The forecast column sticks by its bottom edge when taller than the window — a plain sticky column hid the swap suggestions beneath the fold.
+- Chart shape transitions use the CSS `d` property instead of Motion path animation, which logged SVG errors when a path first mounted.
 

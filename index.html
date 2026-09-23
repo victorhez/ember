@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" data-theme="night">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Ember — see tomorrow's crash before you spend today</title>
+    <meta name="description" content="A pacing planner for ME/CFS, Long COVID and energy-limiting illness. Plan today and watch the next three days respond — before your body sends the bill." />
+    <meta name="theme-color" content="#0d0a08" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ember — see tomorrow's crash before you spend today" />
+    <meta property="og:description" content="A pacing planner that forecasts the delayed payback of today's plan and learns your personal crash lag." />
+    <meta property="og:image" content="/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      try {
+        var s = JSON.parse(localStorage.getItem('ember:v1') || 'null')
+        var t = s && s.settings && s.settings.theme
+        if (!t || t === 'system') t = matchMedia('(prefers-color-scheme: light)').matches ? 'day' : 'night'
+        document.documentElement.dataset.theme = t
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
