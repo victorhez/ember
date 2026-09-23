@@ -39,7 +39,7 @@ Build mode: fast
   Learner check: Type "shower, groceries, 2h zoom call, birthday party" and apply a suggested swap; watch the crash clear.
   Commit: `Add quick add, crash explanations and swap suggestions`
 
-- [ ] **4. Settings, themes, rollover and ship polish**
+- [x] **4. Settings, themes, rollover and ship polish**
   Becomes usable: Night/Daylight themes, settings sheet (budget, sample data, clear data, disclaimer), date rollover, responsive layout, favicon, manifest, social preview, deploy config.
   Why now: Completes a coherent product experience once the kernel is proven.
   PRD ref: `prd.md > Screens and Layout`, `prd.md > Look and Feel`, `prd.md > Persistence and Privacy`, `prd.md > States and Boundaries`
@@ -62,10 +62,10 @@ Build mode: fast
 
 - [ ] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
 - [ ] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
+- [x] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
 
-Activity and evidence: 
-Route and stops: 
+Activity and evidence: App map generated from the finished code; learner walkthrough not yet done. The "practice to reuse" points at the fit-recovery test in src/model/model.test.ts, which settled the spec's open question.
+Route and stops: Reference route only: PlanBuilder.tsx › QuickAdd.submit → model/quickAdd.ts › parseQuickAdd → model/forecast.ts › projectDays.
 Edit outcome: 
 Reflection: 
 Activity mode: 
@@ -76,4 +76,5 @@ Activity mode:
 - Risk thresholds moved from 55%/75% to 65%/85% of the usual budget — with the original lines, a clearly over-budget day produced only "Tight", which under-warned compared with how the sample history actually crashed.
 - The forecast column sticks by its bottom edge when taller than the window — a plain sticky column hid the swap suggestions beneath the fold.
 - Chart shape transitions use the CSS `d` property instead of Motion path animation, which logged SVG errors when a path first mounted.
-
+- Added a #pattern deep link so the Pattern view can be opened and shared directly; it was also needed to capture README screenshots.
+- Moved items now arrive on the first day the app is opened on or after their target day, not only on the exact day, so a skipped day no longer drops them.

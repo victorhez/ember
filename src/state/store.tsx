@@ -69,7 +69,8 @@ export function rollover(state: State, date: string): State {
       items: t.plan.map((p) => p.name),
     })
   }
-  const arriving = t.moved.filter((m) => m.toDate === date)
+  // Anything moved to today — or to a day the app wasn't opened on — lands in today's plan.
+  const arriving = t.moved.filter((m) => daysBetween(m.toDate, date) >= 0)
   const stillMoved = t.moved.filter((m) => daysBetween(date, m.toDate) > 0)
   return {
     ...state,

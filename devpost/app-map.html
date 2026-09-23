@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ember App Map</title>
+<style>
+  :root { --bg: #fbf7f1; --card: #fff; --text: #2a1e15; --muted: #6c5a4b; --line: #eadfd2; --ember: #e0501a; --rest: #238b7a; --risk: #cf3f55; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0f0c0a; --card: #1a1410; --text: #f4ece2; --muted: #b3a291; --line: #2e241d; --ember: #ff8a3d; --rest: #62cbb8; --risk: #ef6d7d; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 48px 16px 64px; }
+  h1 { font: 500 40px/1.1 Georgia, serif; margin: 0 0 8px; letter-spacing: -.02em; }
+  h2 { font: 500 24px/1.2 Georgia, serif; margin: 40px 0 12px; }
+  p.lede { color: var(--muted); font-size: 18px; margin: 0; }
+  code { font: 13.5px ui-monospace, "Cascadia Code", Consolas, monospace; background: color-mix(in srgb, var(--ember) 10%, transparent); padding: 1px 6px; border-radius: 6px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; margin: 12px 0; }
+  .stop { display: grid; grid-template-columns: 36px 1fr; gap: 14px; }
+  .num { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; color: var(--ember); border: 1.5px solid var(--ember); }
+  svg { width: 100%; height: auto; display: block; }
+  svg text { fill: var(--text); font: 13px ui-sans-serif, system-ui, sans-serif; }
+  svg .muted { fill: var(--muted); font-size: 11.5px; }
+  svg rect { fill: var(--card); stroke: var(--line); stroke-width: 1.5; }
+  svg .hot { stroke: var(--ember); }
+  svg path { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+  ul { padding-left: 20px; } li { margin: 6px 0; }
+  details summary { cursor: pointer; font-weight: 600; }
+  .small { color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Ember: app map</h1>
+  <p class="lede">A pacing planner that projects today's overspend onto the next three days and learns each person's crash lag. Everything runs in the browser; data lives in local storage.</p>
+
+  <h2>The main pieces</h2>
+  <ul>
+    <li><strong>Model</strong> (<code>src/model/</code>): pure functions with no UI. They cover the forecast, the learning fit, the quick-add parser, swap suggestions and sample data. This is where the idea lives, and it is unit-tested.</li>
+    <li><strong>Store</strong> (<code>src/state/store.tsx</code>): one reducer holds settings, today's check-in and plan, and history. It saves to local storage on every change and rolls the day over at midnight.</li>
+    <li><strong>Screens</strong> (<code>src/components/</code>): Welcome, Today (energy hero, plan builder, forecast, swaps), Pattern (stats and history chart) and Settings.</li>
+  </ul>
+
+  <h2>One action, end to end: adding a birthday party</h2>
+  <div class="card">
+    <svg viewBox="0 0 820 170" role="img" aria-label="Quick add input flows to parseQuickAdd, then the store, then projectDays, then the forecast cards">
+      <rect x="10" y="40" width="170" height="70" rx="12" />
+      <text x="24" y="68">Quick add input</text><text x="24" y="90" class="muted">PlanBuilder.tsx</text>
+      <rect x="220" y="40" width="170" height="70" rx="12" />
+      <text x="234" y="68">parseQuickAdd()</text><text x="234" y="90" class="muted">model/quickAdd.ts</text>
+      <rect x="430" y="40" width="170" height="70" rx="12" />
+      <text x="444" y="68">dispatch 'add'</text><text x="444" y="90" class="muted">state/store.tsx</text>
+      <rect x="640" y="40" width="170" height="70" rx="12" class="hot" />
+      <text x="654" y="68">projectDays()</text><text x="654" y="90" class="muted">model/forecast.ts</text>
+      <path d="M180 75 H220" /><path d="M390 75 H430" /><path d="M600 75 H640" />
+      <text x="640" y="140" class="muted">→ Forecast.tsx day cards, WaveChart, explanation</text>
+      <text x="10" y="20" class="muted">Type "birthday party", press Enter</text>
+    </svg>
+  </div>
+
+  <h2>Reference route</h2>
+  <p class="small">A reference route through the actual code. It was not walked through interactively.</p>
+  <div class="card stop"><span class="num">1</span><div><strong><code>src/components/PlanBuilder.tsx</code> → <code>QuickAdd</code></strong><br/>The form's <code>submit</code> calls <code>parseQuickAdd(text)</code> and dispatches the new items. That's the moment a sentence becomes plan items.</div></div>
+  <div class="card stop"><span class="num">2</span><div><strong><code>src/model/quickAdd.ts</code> → <code>parseQuickAdd</code></strong><br/>It splits the sentence into phrases, pulls out durations with <code>extractMinutes</code>, and matches each phrase to the activity library (<code>matchActivity</code>). "birthday party" becomes <em>Family gathering</em>, costing 5 spoons.</div></div>
+  <div class="card stop"><span class="num">3</span><div><strong><code>src/model/forecast.ts</code> → <code>projectDays</code></strong><br/>It works out today's overspend and spreads <code>ratio × weights[k] × over</code> onto days +1 to +3, alongside payback still owed from logged days. The learned <code>weights</code> and <code>ratio</code> come from <code>fitPattern</code> in <code>src/model/learn.ts</code>. <code>Forecast.tsx</code> renders the result, and Friday turns <em>Crash likely</em>.</div></div>
+
+  <h2>To change this, start here</h2>
+  <ul>
+    <li><strong>Activity costs, or adding an activity:</strong> the <code>ACTIVITIES</code> list in <code>src/model/activities.ts</code>.</li>
+    <li><strong>When a day counts as "Tight" or "Crash likely":</strong> <code>CRASH_LINE</code> and <code>TIGHT_LINE</code> in <code>src/model/forecast.ts</code>.</li>
+    <li><strong>Check-in levels and their envelopes:</strong> <code>CHECK_IN_LEVELS</code> in <code>src/model/forecast.ts</code>.</li>
+    <li><strong>Colours and themes:</strong> <code>src/styles/tokens.css</code>.</li>
+    <li><strong>Swap ideas:</strong> the candidate loop in <code>suggestSwaps</code>, <code>src/model/swaps.ts</code>.</li>
+  </ul>
+
+  <h2>A practice to reuse</h2>
+  <div class="card">
+    <p style="margin:0">The riskiest assumption was whether a small least-squares fit could really recover a person's crash lag from a few weeks of noisy data. The spec (<code>spec.md › Decisions and Open Issues</code>) named that as an open question, and it was settled by a test rather than by hope. <code>src/model/model.test.ts</code> generates history from a <em>known</em> pattern and asserts that the fit recovers it. The same move works on any project: when a feature rests on an uncertain algorithm, build fake data where you know the right answer and check that the code finds it. Do that before building UI on top.</p>
+  </div>
+
+  <h2>Run it again</h2>
+  <p><code>npm install</code>, then <code>npm run dev</code>, then open <code>http://localhost:5173</code>. Run the tests with <code>npm test</code>.</p>
+  <details><summary>About this map</summary><p class="small">This is a snapshot of the code at the commit that added it, and the code may drift from it over time. All paths and symbols were checked against the source when it was written.</p></details>
+</main>
+</body>
+</html>

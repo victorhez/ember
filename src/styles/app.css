@@ -539,6 +539,14 @@
   padding: 16px 0;
   margin: 0 calc(var(--gutter) * -1);
   padding-inline: var(--gutter);
+}
+
+/* Full-bleed frosted bar behind the centred header content. */
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0 -100vmax;
+  z-index: -1;
   background: color-mix(in srgb, var(--bg) 72%, transparent);
   backdrop-filter: blur(18px) saturate(1.4);
   -webkit-backdrop-filter: blur(18px) saturate(1.4);

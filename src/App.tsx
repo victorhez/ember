@@ -10,7 +10,7 @@ import { useResolvedTheme } from './components/useTheme'
 
 export default function App() {
   const { state } = useStore()
-  const [view, setView] = useState<View>('today')
+  const [view, setView] = useState<View>(() => (window.location.hash === '#pattern' ? 'pattern' : 'today'))
   const [settingsOpen, setSettingsOpen] = useState(false)
   const theme = useResolvedTheme(state.settings.theme)
 
@@ -21,6 +21,7 @@ export default function App() {
 
   useEffect(() => {
     window.scrollTo({ top: 0 })
+    if (state.onboarded) history.replaceState(null, '', view === 'pattern' ? '#pattern' : window.location.pathname)
   }, [view, state.onboarded])
 
   return (
